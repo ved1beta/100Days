@@ -1,0 +1,22 @@
+I want to talk about how offsets and stuff is calculated in CUDA and Triton
+
+I will start with CUDA because is easier to explain in my opinion :
+```c
+__global__ void vectorAdd(const float* A , const float *B, float *C, int N){
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;    
+    if (idx<N){
+        C[idx] = A[idx] + B[idx];
+    }
+}
+```
+So this is a simple `vectorADD` function who takes as input the following:
+
+`const float* A` -> a constant pointer of type float to the `A` array
+
+`const float* B` -> a constant pointer of type float to the `B` array
+
+`float *C` -> a pointer of type float to the `C` array. Note: `C` pointer is not a constant because we want to modify the element of it
+
+Now lets dive deeper:
+`int idx = blockIdx.x * blockDim.x + threadIdx.x`
+
