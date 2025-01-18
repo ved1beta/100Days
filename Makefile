@@ -1,39 +1,37 @@
-# Define the base directory for your project
 PROJECT_DIR := $(CURDIR)
 
-# Default target to build the program
+COLOR_RESET := \033[0m
+COLOR_GREEN := \033[32m
+COLOR_YELLOW := \033[33m
+COLOR_BLUE := \033[34m
+COLOR_RED := \033[31m
+
 all: build
 
-# Build target for a specific day and program
-build: $(PROJECT_DIR)/day$(day)/$(program).out
+build: $(PROJECT_DIR)/$(dir)/$(program).out
 
-$(PROJECT_DIR)/day$(day)/$(program).out: $(PROJECT_DIR)/day$(day)/$(program).cu
-	@echo "Building program $(program) for day$(day)..."
+$(PROJECT_DIR)/$(dir)/$(program).out: $(PROJECT_DIR)/$(dir)/$(program).cu
+	@echo  "$(COLOR_YELLOW)Building program $(program) in directory $(dir)...$(COLOR_RESET)"
 	@nvcc -o $@ $<
-	@echo "Build completed for $(program).out"
+	@echo  "$(COLOR_GREEN)Build completed for $(program).out in $(dir)$(COLOR_RESET)"
 
-# Target to run the program (removes .cu extension, adds .out)
-run: $(PROJECT_DIR)/day$(day)/$(program).out
-	@echo "Running $(program).out..."
-	@./day$(day)/$(program).out
+run: $(PROJECT_DIR)/$(dir)/$(program).out
+	@echo  "$(COLOR_BLUE)Running $(program).out in directory $(dir)...$(COLOR_RESET)"
+	@./$(dir)/$(program).out
 
-# Target to clean the .out files from a specific day
 clean:
-	@echo "Cleaning up .out files for day$(day)..."
-	@rm -f $(PROJECT_DIR)/day$(day)/*.out
-	@echo "Clean completed for day$(day)"
+	@echo  "$(COLOR_RED)Cleaning up .out files in directory $(dir)...$(COLOR_RESET)"
+	@rm -f $(PROJECT_DIR)/$(dir)/*.out
+	@echo  "$(COLOR_GREEN)Clean completed for directory $(dir)$(COLOR_RESET)"
 
-# Help target to display usage instructions
 help:
-	@echo "Usage instructions for Makefile:"
+	@echo  "$(COLOR_BLUE)Usage instructions for Makefile:$(COLOR_RESET)"
 	@echo ""
-	@echo "make day=<day> program=<program>    Build the program <program>.cu for day <day>"
-	@echo "make run day=<day> program=<program> Run the compiled <program>.out for day <day>"
-	@echo "make clean day=<day>               Clean all .out files for day <day>"
+	@echo "$(COLOR_YELLOW)make dir=<dir> program=<program>$(COLOR_RESET)      # Build the program <program>.cu in directory <dir>"
+	@echo "$(COLOR_YELLOW)make run dir=<dir> program=<program>$(COLOR_RESET)  # Run the compiled <program>.out in directory <dir>"
+	@echo "$(COLOR_YELLOW)make clean dir=<dir>$(COLOR_RESET)                  # Clean all .out files in directory <dir>"
 	@echo ""
-	@echo "Examples:"
-	@echo "make day=1 program=addition        # Build addition.cu for day 1"
-	@echo "make run day=1 program=addition    # Run addition.out for day 1"
-	@echo "make clean day=1                  # Clean up .out files for day 1"
-
-# Allow passin
+	@echo "$(COLOR_BLUE)Examples:$(COLOR_RESET)"
+	@echo "$(COLOR_GREEN)make dir=day1 program=addition$(COLOR_RESET)        # Build addition.cu in day1"
+	@echo "$(COLOR_GREEN)make run dir=day1 program=addition$(COLOR_RESET)    # Run addition.out in day1"
+	@echo "$(COLOR_GREEN)make clean dir=day1$(COLOR_RESET)                   # Clean up .out files in day1"

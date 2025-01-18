@@ -14,6 +14,7 @@ __global__ void voidKernel(int *input,int *output,int N) {
     }   
 }
 
+
 int main(){
     int N = 10; // size of input and output arrays
     int size = N*sizeof(int); // total memory to allocate for the ararys 
