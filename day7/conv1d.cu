@@ -11,15 +11,14 @@ __global__ void conv1D(float *X, float *K, float *Y, int input_size, int kernel_
     int radius = kernel_size / 2;
 
     int sharedIdx = threadIdx.x + radius; // the main element from the conv
-    shared[sharedIdx] = (i < input_size) ? X[i] : 0.0f;
-
+    // index will start from the radius so that we have left 2 more behind use 
     /// SO we load in the share memory all the elements our filter will work on the block
-    if (threadIdx.x < radius)
+    if (threadIdx.x < blockDim.x - radius)
     {
         int left = i - radius;
         int right = i + blockDim.x;
 
-        shared[threadIdx.x] = (left >= 0) ? X[left] : 0.0f;
+        shared[threadIdx.x] = (left >= 0) ? X[left] : 0.0f; 
         shared[sharedIdx + blockDim.x] = (right < input_size) ? X[right] : 0.0f;
     }
 
@@ -73,13 +72,13 @@ int main()
 
     cudaMemcpy(Ycpu, Ygpu, N * sizeof(float), cudaMemcpyDeviceToHost);
 
-    std::cout<<"First 10 elements "<<std::endl;
+    std::cout << "First 10 elements " << std::endl;
     for (size_t i = 0; i < 10; i++)
     {
-        std::cout << Xcpu[i] <<" ";
+        std::cout << Xcpu[i] << " ";
     }
-    
-    std::cout<<"\nFirst 10 elements after the convolution op"<<std::endl;
+
+    std::cout << "\nFirst 10 elements after the convolution op" << std::endl;
     for (size_t i = 0; i < 10; i++)
     {
         std::cout << Ycpu[i] << " ";
