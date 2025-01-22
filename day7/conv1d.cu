@@ -17,12 +17,9 @@ __global__ void conv1D(float *X, float *K, float *Y, int input_size, int kernel_
     if (threadIdx.x < radius)
     {
         int left = i - radius;
-        shared[threadIdx.x] = (left >= 0) ? X[left] : 0.0f;
-    }
-
-    if (threadIdx.x < radius)
-    {
         int right = i + blockDim.x;
+
+        shared[threadIdx.x] = (left >= 0) ? X[left] : 0.0f;
         shared[sharedIdx + blockDim.x] = (right < input_size) ? X[right] : 0.0f;
     }
 
