@@ -1,3 +1,17 @@
+# Project Progress and Tasks
+
+Bro in CUDA : https://github.com/a-hamdi/cuda
+
+### Mandatory and Optional Tasks
+| Day   | Task Description                                                                                     |
+|-------|-----------------------------------------------------------------------------------------------------|
+| D15   | **Mandatory FA2-Forward**: Implement forward pass for FA2 (e.g., a custom neural network layer).    |
+| D20   | **Mandatory FA2-Backwards**: Implement backward pass for FA2 (e.g., gradient computation).          |
+| D20   | **Optional Fused Chunked CE Loss + Backwards**: Fused implementation of chunked cross-entropy loss with backward pass. Can use Liger Kernel as a reference implementation. |
+
+---
+
+### Project Progress by Day
 | Day   | Files & Summaries                                                                                                                                                                                                                          |
 |-------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | day1  | **printAdd.cu**: Print global indices for 1D vector (index calculation).<br>**addition.cu**: GPU vector addition; basics of memory allocation/host-device transfer.                                                                 |
