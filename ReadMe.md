@@ -1,7 +1,7 @@
 # Project Progress and Tasks
 
-Bro in CUDA : https://github.com/a-hamdi/cuda
-
+Bro in CUDA 📗 : https://github.com/a-hamdi/cuda
+Mentor 🚀 : https://github.com/hkproj
 ### Mandatory and Optional Tasks
 | Day   | Task Description                                                                                     |
 |-------|-----------------------------------------------------------------------------------------------------|
