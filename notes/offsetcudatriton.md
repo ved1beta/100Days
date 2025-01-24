@@ -1,4 +1,4 @@
-I want to talk about how offsets and stuff is calculated in CUDA and Triton
+ I want to talk about how offsets and stuff is calculated in CUDA and Triton
 
 I will start with CUDA because is easier to explain in my opinion :
 ```c
