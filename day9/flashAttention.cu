@@ -104,6 +104,7 @@ __global__ void forwardKernel(
                 P[Br*threadindex+Bc] = expf(S[Bc*threadindex+p]-rowmax);
                 lBlock[i] += P[Bc*threadindex+p];
             }   
+            
             // Mblcoks , lblocks
             // m = [ 1. .. .. N ]
             float new_M_max = max(m[i*Br],mBlock[i]);
