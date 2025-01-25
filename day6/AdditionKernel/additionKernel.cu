@@ -22,4 +22,4 @@ void addition(torch::Tensor& input, int arraySize) {
     if (err != cudaSuccess) {
         TORCH_CHECK(false, "CUDA error: ", cudaGetErrorString(err));
     }
-}
+}   
