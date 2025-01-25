@@ -26,3 +26,12 @@ Mentor 🚀 : https://github.com/hkproj
 | day9  | **flashAttentionFromTut.cu**: Minimal Flash Attention kernel with shared memory tiling.<br>**bind.cpp**: Torch C++ extension bindings for Flash Attention.<br>**test.py**: Tests the minimal Flash Attention kernel against a manual softmax-based attention for comparison. |
 | day10 | **ppmbook/matrixmul.cu**: Matrix multiplication using CUDA.<br>**setup.py**: Torch extension build script for CUDA code (FlashAttention).<br>**FlashAttention.cu**: Example Flash Attention CUDA kernel.<br>**FlashAttention.cpp**: Torch bindings for the Flash Attention kernel.<br>**test.py**: Manual vs. CUDA-based attention test.<br>**linking/test.py**: Builds simple CUDA kernel for testing linking.<br>**linking/simpleKernel.cpp**: Torch extension binding for a simple CUDA kernel.<br>**linking/simpleKernel.cu**: Simple CUDA kernel that increments a tensor. |
 | nvidiadocs | **addition.cu**: 1D/2D vector/matrix addition examples.                                                                                                                                                                                      |
+
+#### How to load into Pytorch:
+- (optional) create tempalte kernel
+- create kernelforward where you set up the grids and other calculations
+- create `.cpp` file
+- import the header of the file
+- create a wraper so that you can use tensors
+- use PYBIN11_MODULE to create a torchextension
+- in `.py` file : `torch.utils.cpp_extension.load()` use it to load the files and it will compile
