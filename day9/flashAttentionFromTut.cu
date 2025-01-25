@@ -24,8 +24,8 @@ __global__ void flashKernel(const float *Q,
                             const int Tr)
 {
     int threadIdxX = threadIdx.x;
-    int blockIdxX = blockIdx.x;
-    int blockIdxY = blockIdx.y;
+    int blockIdxX = blockIdx.x; // batch
+    int blockIdxY = blockIdx.y; // head
 
     int qkvOffset = (blockIdxX * gridDim.y * seq_len * dim_embed) + (blockIdxY * seq_len * dim_embed);
     int lmOffset = (blockIdxX * gridDim.y * seq_len) + (blockIdxY * seq_len);
@@ -85,7 +85,7 @@ __global__ void flashKernel(const float *Q,
                 scoreSum += Si[r * dim_embed + k] * Vi[k * Bc + c];
             }
             Si[r * dim_embed + c] = scoreSum;
-            O[qkvOffset + r * dim_embed + c] = Si[r * dim_embed + c] * V[qkvOffset + r * dim_embed + c];
+            O[qkvOffset + r * dim_embed + c] = Si[r * dim_embed + c] * Vi[r * dim_embed + c];
         }
     }
 }
@@ -101,9 +101,9 @@ void randomInit(float *data, int size)
 int main()
 {
     const int batch_size = 1;
-    const int seq_len = 256;
-    const int nr_heads = 4;
-    const int dim_head = 64;
+    const int seq_len = 2;
+    const int nr_heads = 1;
+    const int dim_head = 2;
     const int Bc = 32;
     const int Br = 32;
     const int Tc = ceil((float)seq_len / Bc);
